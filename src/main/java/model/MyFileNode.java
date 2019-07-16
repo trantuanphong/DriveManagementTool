@@ -20,6 +20,7 @@ public class MyFileNode extends DefaultMutableTreeNode {
     private String fileType;
     private String fileStatus;
     private String filePath;
+    private long fileLastModified;
     
     public MyFileNode() {
         super();
@@ -50,6 +51,7 @@ public class MyFileNode extends DefaultMutableTreeNode {
         this.fileName = file.getName();
         this.fileType = file.getMimeType();
         this.fileStatus = CommonString.STATUS_IN_DRIVE_ONLY;
+        this.fileLastModified = file.getModifiedTime().getValue();
     }
 
     public String getFileID() {
@@ -90,6 +92,14 @@ public class MyFileNode extends DefaultMutableTreeNode {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public long getFileLastModified() {
+        return fileLastModified;
+    }
+
+    public void setFileLastModified(long fileLastModified) {
+        this.fileLastModified = fileLastModified;
     }
     
     @Override

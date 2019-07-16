@@ -43,9 +43,13 @@ public class LoginController {
 
     public void login() {
         if (loginScreen.getJtListFile().getSelectionCount() == 1) {
+            
             MyFileNode myFile = (MyFileNode) loginScreen.getJtListFile()
                     .getSelectionPath().getLastPathComponent();
             myFile.setFileStatus(CommonString.STATUS_NORMAL);
+            
+            XmlUtility.setLocalLocation(loginScreen.getTxtLocalWorkplacePath().getText());
+            
             new MainScreen(myFile).setVisible(true);
             loginScreen.dispose();
         } else {

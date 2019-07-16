@@ -39,24 +39,19 @@ public class LoginScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         txtLocalWorkplacePath = new javax.swing.JTextField();
-        btnGetLocalWorkplace = new javax.swing.JButton();
         lblLocalWorkplacePath = new javax.swing.JLabel();
-        btnLogin = new javax.swing.JButton();
+        btnStart = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListFile = new javax.swing.JTree();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtLocalWorkplacePath.setEditable(false);
-
-        btnGetLocalWorkplace.setText("Choose");
-
         lblLocalWorkplacePath.setText("Path of Local Workplace");
 
-        btnLogin.setText("LOGIN");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnStart.setText("START");
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnStartActionPerformed(evt);
             }
         });
 
@@ -67,23 +62,17 @@ public class LoginScreen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLocalWorkplacePath)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblLocalWorkplacePath)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
-                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGetLocalWorkplace))
+                        .addComponent(lblLocalWorkplacePath)
+                        .addGap(0, 229, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116))
+                    .addComponent(jScrollPane1)
+                    .addComponent(txtLocalWorkplacePath))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,21 +83,19 @@ public class LoginScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblLocalWorkplacePath)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtLocalWorkplacePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGetLocalWorkplace))
+                .addComponent(txtLocalWorkplacePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLogin)
+                .addComponent(btnStart)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         // TODO add your handling code here:
         controller.login();
-    }//GEN-LAST:event_btnLoginActionPerformed
+    }//GEN-LAST:event_btnStartActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,28 +133,19 @@ public class LoginScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGetLocalWorkplace;
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnStart;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTree jtListFile;
     private javax.swing.JLabel lblLocalWorkplacePath;
     private javax.swing.JTextField txtLocalWorkplacePath;
     // End of variables declaration//GEN-END:variables
 
-    public JButton getBtnGetLocalWorkplace() {
-        return btnGetLocalWorkplace;
-    }
-
-    public void setBtnGetLocalWorkplace(JButton btnGetLocalWorkplace) {
-        this.btnGetLocalWorkplace = btnGetLocalWorkplace;
-    }
-
     public JButton getBtnLogin() {
-        return btnLogin;
+        return btnStart;
     }
 
     public void setBtnLogin(JButton btnLogin) {
-        this.btnLogin = btnLogin;
+        this.btnStart = btnLogin;
     }
 
     public JScrollPane getjScrollPane1() {
