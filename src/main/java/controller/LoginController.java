@@ -5,10 +5,10 @@
  */
 package controller;
 
-import adapter.DriveAdapter;
-import common.CommonString;
+import handler.DriveHandler;
+import common.CommonContent;
 import common.CommonTheme;
-import common.XmlUtility;
+import handler.SettingHandler;
 import gui.LoginScreen;
 import gui.MainScreen;
 import javax.swing.JOptionPane;
@@ -31,13 +31,14 @@ public class LoginController {
         CommonTheme.setTheme(loginScreen);
         loginScreen.getJtListFile().setModel(loadFileFromDrive());
         loginScreen.getTxtLocalWorkplacePath()
-                .setText(XmlUtility.getLocalLocation());
+                .setText(SettingHandler.getInstance().getLocalLocation());
     }
 
     private DefaultTreeModel loadFileFromDrive() {
-        MyFileNode files = new MyFileNode(DriveAdapter.getDriveName());
-        files.add(DriveAdapter.getListFile());
-        files.add(DriveAdapter.getFileSharedWithMe());
+        MyFileNode files = 
+                new MyFileNode(DriveHandler.getInstance().getDriveName());
+        files.add(DriveHandler.getInstance().getListFile());
+        files.add(DriveHandler.getInstance().getFileSharedWithMe());
         return new DefaultTreeModel(files);
     }
 
@@ -46,9 +47,10 @@ public class LoginController {
             
             MyFileNode myFile = (MyFileNode) loginScreen.getJtListFile()
                     .getSelectionPath().getLastPathComponent();
-            myFile.setFileStatus(CommonString.STATUS_NORMAL);
+            myFile.setFileStatus(CommonContent.STATUS_NORMAL);
             
-            XmlUtility.setLocalLocation(loginScreen.getTxtLocalWorkplacePath().getText());
+            SettingHandler.getInstance().setLocalLocation(
+                    loginScreen.getTxtLocalWorkplacePath().getText());
             
             new MainScreen(myFile).setVisible(true);
             loginScreen.dispose();

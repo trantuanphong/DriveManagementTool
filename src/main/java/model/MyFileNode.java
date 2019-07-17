@@ -6,7 +6,7 @@
 package model;
 
 import com.google.api.services.drive.model.File;
-import common.CommonString;
+import common.CommonContent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -50,7 +50,7 @@ public class MyFileNode extends DefaultMutableTreeNode {
         this.fileID = file.getId();
         this.fileName = file.getName();
         this.fileType = file.getMimeType();
-        this.fileStatus = CommonString.STATUS_IN_DRIVE_ONLY;
+        this.fileStatus = CommonContent.STATUS_IN_DRIVE_ONLY;
         this.fileLastModified = file.getModifiedTime().getValue();
     }
 
