@@ -7,7 +7,6 @@ import handler.SettingHandler;
 import gui.LogChangesScreen;
 import gui.MainScreen;
 import handler.FileHandler;
-import javax.swing.DefaultListModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import model.MyFileNode;
@@ -37,18 +36,9 @@ public class MainController {
     }
 
     public void logChanges() {
-        LogChangesScreen log = new LogChangesScreen(mainScreen, false);
-        log.setVisible(true);
-        DefaultListModel<String> liMo = new DefaultListModel();
-        int i = 0;
         MyFileNode myFile = (MyFileNode) mainScreen.getJtListFile()
                 .getSelectionPath().getLastPathComponent();
-        java.util.List<Revision> revis = DriveHandler.getInstance()
-                .retrieveRevisions(myFile.getFileID());
-        for (Revision revi : revis) {
-            liMo.add(i++, revi.toString());
-        }
-        log.getJlRevision().setModel(liMo);
+        new LogChangesScreen(mainScreen, true, myFile).setVisible(true);
     }
 
     public void deliverFile() {

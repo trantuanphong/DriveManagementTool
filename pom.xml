@@ -25,10 +25,5 @@
             <artifactId>google-oauth-client-jetty</artifactId>
             <version>1.23.0</version>
         </dependency>
-        <dependency>
-            <groupId>phongtt</groupId>
-            <artifactId>fileUtility</artifactId>
-            <version>1</version>
-        </dependency>
     </dependencies>
 </project>

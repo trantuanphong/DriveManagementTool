@@ -5,7 +5,9 @@
  */
 package gui;
 
+import controller.LogChangesController;
 import javax.swing.JList;
+import model.MyFileNode;
 
 /**
  *
@@ -13,12 +15,18 @@ import javax.swing.JList;
  */
 public class LogChangesScreen extends javax.swing.JDialog {
 
+    private final LogChangesController controller;
+    private final MyFileNode file;
+    
     /**
      * Creates new form LogChangesScreen
      */
-    public LogChangesScreen(java.awt.Frame parent, boolean modal) {
+    public LogChangesScreen(java.awt.Frame parent, boolean modal, MyFileNode file) {
         super(parent, modal);
         initComponents();
+        this.file = file;
+        controller = new LogChangesController(this);
+        controller.init();
     }
 
     /**
@@ -73,6 +81,10 @@ public class LogChangesScreen extends javax.swing.JDialog {
 
     public void setJlRevision(JList<String> jlRevision) {
         this.jlRevision = jlRevision;
+    }
+
+    public MyFileNode getFile() {
+        return file;
     }
 
 }
