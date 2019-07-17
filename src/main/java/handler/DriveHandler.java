@@ -16,21 +16,24 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.swing.tree.TreePath;
 import model.MyFileNode;
 
 public class DriveHandler {
 
     private static DriveHandler driveHandler;
-    private DriveHandler(){
-        
+
+    private DriveHandler() {
+
     }
+
     public static DriveHandler getInstance() {
         if (driveHandler == null) {
             driveHandler = new DriveHandler();
         }
         return driveHandler;
     }
-    
+
     public String getDriveName() {
         try {
             return DriveUtility.getService().getApplicationName();
@@ -55,7 +58,8 @@ public class DriveHandler {
     }
 
     public MyFileNode getSelectedFile(MyFileNode selectedFile) {
-        MyFileNode treeFile = new MyFileNode(selectedFile.getFileName());
+        MyFileNode treeFile = new MyFileNode(selectedFile.getFileID(),
+                selectedFile.getFileName(),CommonContent.STATUS_NORMAL);
         List<File> files = getFileInFolder(selectedFile.getFileID());
         if (files != null && !files.isEmpty()) {
             for (File file : files) {
@@ -115,21 +119,50 @@ public class DriveHandler {
         return recursive(getFileInFolder("root"), new MyFileNode("root"));
     }
 
-    public int uploadFile(MyFileNode myFile) {
+    public int uploadFile(TreePath treePath) {
         try {
+            MyFileNode myFile = (MyFileNode) treePath.getLastPathComponent();
+            MyFileNode myFolder = (MyFileNode) treePath.getParentPath().getLastPathComponent();
+            System.out.println(myFolder.getFileID());
             File fileMetadata = new File();
             fileMetadata.setName(myFile.getFileName());
             java.io.File filePath = new java.io.File(myFile.getFilePath());
             FileContent mediaContent = new FileContent(null, filePath);
-            DriveUtility.getService().files().create(fileMetadata, mediaContent)
-                    .setFields("id").execute();
+            String id = DriveUtility.getService().files().create(fileMetadata, mediaContent)
+                    .setFields("id").execute().getId();
+            myFile.setFileID(id);
+            System.out.println(moveFileToFolder(myFile, myFolder));
         } catch (Exception e) {
             System.out.println(e);
             return CommonContent.FALSE;
         }
         return CommonContent.TRUE;
     }
-    
+
+    public int moveFileToFolder(MyFileNode myFile, MyFileNode myFolder) {
+        try {
+            // Retrieve the existing parents to remove
+            File file = DriveUtility.getService().files().get(myFile.getFileID())
+                    .setFields("parents")
+                    .execute();
+            StringBuilder previousParents = new StringBuilder();
+            for (String parent : file.getParents()) {
+                previousParents.append(parent);
+                previousParents.append(',');
+            }
+            // Move the file to the new folder
+            file = DriveUtility.getService().files().update(myFile.getFileID(), null)
+                    .setAddParents(myFolder.getFileID())
+                    .setRemoveParents(previousParents.toString())
+                    .setFields("id, parents")
+                    .execute();
+            return CommonContent.TRUE;
+        } catch (Exception e) {
+            System.out.println(e);
+            return CommonContent.FALSE;
+        }
+    }
+
     public int updateFile(MyFileNode myFile) {
 //        try {
 //            File fileMetadata = new File();
@@ -146,10 +179,10 @@ public class DriveHandler {
 
     public void downloadFile(MyFileNode myFile, String path) {
         try {
-        OutputStream outputStream = new ByteArrayOutputStream();
-        DriveUtility.getService().files().get(myFile.getFileID())
-                .executeMediaAndDownloadTo(outputStream);
-        FileUtility.writeToFile(path, outputStream.toString());
+            OutputStream outputStream = new ByteArrayOutputStream();
+            DriveUtility.getService().files().get(myFile.getFileID())
+                    .executeMediaAndDownloadTo(outputStream);
+            FileUtility.writeToFile(path, outputStream.toString());
         } catch (Exception e) {
             System.out.println(e);
         }

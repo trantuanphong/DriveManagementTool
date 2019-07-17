@@ -1,7 +1,6 @@
 package controller;
 
 import handler.DriveHandler;
-import com.google.api.services.drive.model.Revision;
 import common.CommonTheme;
 import handler.SettingHandler;
 import gui.LogChangesScreen;
@@ -42,9 +41,8 @@ public class MainController {
     }
 
     public void deliverFile() {
-        MyFileNode myFile = (MyFileNode) mainScreen.getJtListFile()
-                .getSelectionPath().getLastPathComponent();
-        DriveHandler.getInstance().uploadFile(myFile);
+        TreePath treePath = mainScreen.getJtListFile().getSelectionPath();
+        DriveHandler.getInstance().uploadFile(treePath);
     }
 
     public void updateFile() {
